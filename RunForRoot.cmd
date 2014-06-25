@@ -35,19 +35,21 @@ files\adb devices
 ::%E% Press any key when done.
 ::pause >nul
 ::%E%
+if NOT EXIST files\su (
 %E% Downloading latest su binary...
 pushd files
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://www.dropbox.com/s/upr5kwfptgcsx6a/su?dl=1', 'su')"
 popd
 %E% Complete
 %E%
+)
 %E% Preparing device...
 pushd files
-adb shell mv /data/local/tmp /data/local/tmp.bak
-adb shell ln -s /data /data/local/tmp
+adb shell mv /data/local/tmp /data/local/tmp.bak >nul 2>&1
+adb shell ln -s /data /data/local/tmp >nul 2>&1
 %E%
 %E% Rebooting, one moment...
-adb reboot
+adb reboot >nul 2>&1
 %E% When your device reboots, unlock it.
 %E% Press any key to continue.
 pause>nul
@@ -58,11 +60,11 @@ adb wait-for-device
 %E% Device found.
 %E%
 %E% Preparing data on device...
-adb shell rm /data/local.prop
-adb shell "echo \"ro.kernel.qemu=1\" > /data/local.prop"
+adb shell rm /data/local.prop >nul 2>&1
+adb shell "echo \"ro.kernel.qemu=1\" > /data/local.prop" >nul 2>&1
 %E%
 %E% Rebooting, one moment...
-adb reboot
+adb reboot >nul 2>&1
 %E% When your device reboots, unlock it.
 %E% Press any key to continue.
 pause>nul
@@ -74,11 +76,13 @@ adb wait-for-device
 %E%
 %E% Rooting device in:
 %E% 3
-ping localhost >nul
+ping -n 2 localhost >nul
 %E% 2
-ping localhost >nul
+ping -n 2 localhost >nul
 %E% 1
+ping -n 2 localhost >nul
 %E%
+ping -n 2 localhost >nul
 %E% Rooting device...
 adb root >nul 2>&1
 adb shell mount -o remount,rw /system >nul 2>&1
@@ -109,7 +113,7 @@ files\adb shell am start -a android.intent.action.VIEW -d 'http://play.google.co
 %E% Press any key to exit.
 pause >nul
 adb kill-server
-del /f /q su
+taskkill /f /im adb.exe
 exit
 :noadb
 %e% ADB was not found.
