@@ -43,6 +43,7 @@ popd
 %E% Complete
 %E%
 )
+::preps kernel flag
 %E% Preparing device...
 pushd files
 adb shell mv /data/local/tmp /data/local/tmp.bak >nul 2>&1
@@ -85,6 +86,7 @@ ping -n 2 localhost >nul
 ping -n 2 localhost >nul
 %E% Rooting device...
 adb root >nul 2>&1
+::mounts system, pushes su binary
 adb shell mount -o remount,rw /system >nul 2>&1
 adb push su /system/xbin/ >nul 2>&1
 adb shell chown 0.0 /system/xbin/su >nul 2>&1
@@ -106,6 +108,7 @@ pause>nul
 adb wait-for-device
 %E% Device found.
 %E%
+::launches play store, opens SuperSU page
 files\adb shell am start -a android.intent.action.VIEW -d 'http://play.google.com/store/apps/details?id=eu.chainfire.supersu'
 %E% Install this app. Open it. Follow on-screen instructions.
 %E%
@@ -113,7 +116,9 @@ files\adb shell am start -a android.intent.action.VIEW -d 'http://play.google.co
 %E% Press any key to exit.
 pause >nul
 adb kill-server
+:: DO NOT REMOVE, MUST KILL ADB AT END
 taskkill /f /im adb.exe
+::^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 exit
 :noadb
 %e% ADB was not found.
