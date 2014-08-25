@@ -43,6 +43,8 @@ popd
 %E% Complete
 %E%
 )
+%E% Press any key to root your device.
+pause >nul
 ::preps kernel flag
 %E% Preparing device...
 pushd files
