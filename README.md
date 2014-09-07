@@ -1,3 +1,3 @@
-crashroot
-=========
-website branch for project
+project-page-base
+=================
+Base set of files for a project page.

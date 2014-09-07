@@ -1,0 +1,47 @@
+.main {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: table;
+    background-color: #4D5D6E;
+    /* background-color: #2c3e50; */
+}
+.innermain {
+    color: #bdc3c7;
+    display: table-cell;
+    text-align: center;
+}
+.about {
+    margin-top: 100px;
+}
+.more {
+    margin-top: 100px;
+}
+.goback {
+    margin-top: 100px;
+}
+.avatar {
+    width: 10%;
+    border-radius: 50%;
+}
+.innermain p {
+    font-size: 15px;
+}
+span img {
+    vertical-align: middle;
+    width: 1em;
+}
+a {
+    color: #bdc3c7;
+    text-decoration: none;
+}
+
+@media all and (min-width: 640px) {
+    .avatar {
+        width: 10%;
+    }
+}
